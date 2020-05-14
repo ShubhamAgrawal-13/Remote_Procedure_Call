@@ -1,0 +1,4 @@
+sum_rpc 2
+multiply_rpc 2
+max3_rpc 3
+sqrt_rpc 1
