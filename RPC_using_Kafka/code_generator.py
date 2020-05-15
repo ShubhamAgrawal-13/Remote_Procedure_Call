@@ -38,10 +38,11 @@ stub_code=open('stub_code.py','w+')
 stub_code.write("#!/usr/bin/python3\n\n\n")
 
 stub_code.write("from time import sleep\nfrom json import dumps\nfrom kafka import KafkaProducer\nfrom kafka import KafkaConsumer\nfrom json import loads\nimport math\n\n")
-stub_code.write("producer=''\nconsumer=''\ndef produce(topic,msg):\n\tglobal producer\n\tprint('Sent message to '+msg)\n\tproducer.send(topic, value=msg)\n\n")
-stub_code.write("def consume(topic):\n")
-stub_code.write("\tglobal consumer\n")
-stub_code.write("\tfor message in consumer:\n\t\tmessage = message.value\n\t\tprint(message,' ---s ')\n\t\treturn message\n\n")
+stub_code.write("producer = KafkaProducer(  bootstrap_servers=['localhost:9092'],value_serializer=lambda x: dumps(x).encode('utf-8'))\n\n")
+stub_code.write("consumer = KafkaConsumer('{}',bootstrap_servers=['localhost:9092'],auto_commit_interval_ms=10,auto_offset_reset='earliest',enable_auto_commit=True,group_id='{}',value_deserializer=lambda x: loads(x.decode('utf-8')))\n".format(client,client))
+
+stub_code.write("\ndef consume(topic):\n")
+stub_code.write("\tfor message in consumer:\n\t\tmessage = message.value\n\t\tconsumer.commit()\n\t\treturn message\n\n")
 
 
 for method in list_of_methods:
@@ -59,12 +60,10 @@ for method in list_of_methods:
 
 	# stub_code.write("\tproduce('{}','{}')\n".format(server,client))
 	stub_code.write("\tmsg={}\n".format(msg))
-	stub_code.write("\tproduce('{}',msg)\n".format(server))
+	stub_code.write("\tproducer.send('{}',value=msg)\n".format(server))
 	stub_code.write("\tsrt=consume('{}')\n".format(client))
 	stub_code.write("\treturn srt\n")
 	stub_code.write("\n\n\n")
 
-stub_code.write("producer=KafkaProducer(  bootstrap_servers=['localhost:9092'],value_serializer=lambda x: dumps(x).encode('utf-8'))\n\n")
-stub_code.write("consumer = KafkaConsumer('{}',bootstrap_servers=['localhost:9092'],group_id='my-group',value_deserializer=lambda x: loads(x.decode('utf-8')))\n".format(client))
 
 stub_code.close()

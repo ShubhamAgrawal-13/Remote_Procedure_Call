@@ -6,8 +6,6 @@ inp1=input("Enter number 1 : ")
 inp2=input("Enter number 2 : ")
 inp3=input("Enter number 3 : ")
 
-initialize()
-
 print(sum_rpc(inp1,inp2))
 
 print(multiply_rpc(inp1,inp2))
