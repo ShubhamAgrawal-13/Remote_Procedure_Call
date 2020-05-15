@@ -8,7 +8,6 @@ from json import loads
 from colorama import Fore
 import math
 
-
 server=input("Enter server id : ")
 client=input("Enter client id : ")
 

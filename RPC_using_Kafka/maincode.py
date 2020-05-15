@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 from stub_code import *
 
-
 inp1=input("Enter number 1 : ")
 inp2=input("Enter number 2 : ")
 inp3=input("Enter number 3 : ")

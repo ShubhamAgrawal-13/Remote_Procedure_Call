@@ -44,8 +44,8 @@ def max3_rpc(a,b,c):
 
 def sqrt_rpc(a):
 	return math.sqrt(a)
-
-
+	
+#server side code
 for message in consumer:
 	msg = message.value
 	msg=str(msg)
@@ -70,7 +70,6 @@ for message in consumer:
 		producer.send(client,output)
 	else:
 		producer.send(client,"-1")
-
 
 # frombeginning
 
